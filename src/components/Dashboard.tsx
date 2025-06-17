@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -90,7 +91,7 @@ const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack, onRestart }) =>
               className="flex items-center flex-1"
             >
               <TrendingDown className="w-4 h-4 mr-1" />
-              Crash -20%
+              Crash -5%
             </Button>
             <Button 
               onClick={resetBitcoinPrice}
