@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -16,11 +17,6 @@ interface DashboardProps {
 
 const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack, onRestart }) => {
   const { toast } = useToast();
-  
-  // Add back the missing state variables
-  const [btcPrice, setBtcPrice] = useState(100000); // Dynamic BTC price
-  const [loanBalance] = useState(loanData?.loanAmount || 50000);
-  const [btcAmount] = useState(loanData?.requiredBtc || 0.735); // BTC collateral amount
   
   // Calculate dynamic values based on current BTC price
   const [collateralValue, setCollateralValue] = useState(0);
@@ -242,3 +238,4 @@ const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack, onRestart }) =>
 };
 
 export default Dashboard;
+
