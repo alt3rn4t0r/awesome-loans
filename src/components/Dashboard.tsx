@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -53,6 +52,10 @@ const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack, onRestart }) =>
     setBtcPrice(crashedPrice);
   };
 
+  const resetBitcoinPrice = () => {
+    setBtcPrice(100000); // Reset to 100k EUR
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-orange-100 p-4">
       <div className="max-w-md mx-auto">
@@ -73,19 +76,30 @@ const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack, onRestart }) =>
 
         {/* Bitcoin Crash Simulation */}
         <Card className="p-4 mb-6 bg-red-50 border-red-200">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mb-3">
             <div>
               <h3 className="font-semibold text-red-900">Market Simulation</h3>
               <p className="text-sm text-red-700">Test your risk exposure</p>
             </div>
+          </div>
+          <div className="flex space-x-2">
             <Button 
               onClick={simulateBitcoinCrash}
               variant="destructive"
               size="sm"
-              className="flex items-center"
+              className="flex items-center flex-1"
             >
               <TrendingDown className="w-4 h-4 mr-1" />
               Crash -20%
+            </Button>
+            <Button 
+              onClick={resetBitcoinPrice}
+              variant="outline"
+              size="sm"
+              className="flex items-center flex-1"
+            >
+              <TrendingUp className="w-4 h-4 mr-1" />
+              Reset to 100k
             </Button>
           </div>
         </Card>
