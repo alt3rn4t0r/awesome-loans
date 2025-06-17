@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -6,6 +5,7 @@ import { ArrowLeft, TrendingUp, AlertTriangle, CreditCard, DollarSign, Bitcoin, 
 import AlertsModal from './AlertsModal';
 import TopUpCardModal from './TopUpCardModal';
 import AddCollateralModal from './AddCollateralModal';
+import TransactionHistoryModal from './TransactionHistoryModal';
 
 interface DashboardProps {
   loanData: any;
@@ -206,10 +206,12 @@ const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack, onRestart }) =>
               Make Repayment
             </Button>
             
-            <Button className="w-full justify-start" variant="outline">
-              <TrendingUp className="w-4 h-4 mr-2" />
-              View Transaction History
-            </Button>
+            <TransactionHistoryModal>
+              <Button className="w-full justify-start" variant="outline">
+                <TrendingUp className="w-4 h-4 mr-2" />
+                View Transaction History
+              </Button>
+            </TransactionHistoryModal>
           </div>
         </Card>
 
