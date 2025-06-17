@@ -48,7 +48,7 @@ const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack, onRestart }) =>
   };
 
   const simulateBitcoinCrash = () => {
-    const crashedPrice = btcPrice * 0.8; // 20% drop
+    const crashedPrice = btcPrice * 0.95; // 5% drop
     setBtcPrice(crashedPrice);
   };
 
