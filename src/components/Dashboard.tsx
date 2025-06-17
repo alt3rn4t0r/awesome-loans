@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, TrendingUp, AlertTriangle, CreditCard, DollarSign, Bitcoin, RotateCcw } from 'lucide-react';
+import { ArrowLeft, TrendingUp, AlertTriangle, CreditCard, DollarSign, Bitcoin, RotateCcw, TrendingDown } from 'lucide-react';
 import AlertsModal from './AlertsModal';
 import TopUpCardModal from './TopUpCardModal';
 import AddCollateralModal from './AddCollateralModal';
@@ -13,10 +14,22 @@ interface DashboardProps {
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack, onRestart }) => {
-  const [currentLTV] = useState(68.5); // Mock current LTV
-  const [btcPrice] = useState(100000); // Mock current BTC price
+  const [btcPrice, setBtcPrice] = useState(100000); // Dynamic BTC price
   const [loanBalance] = useState(loanData?.loanAmount || 50000);
-  const [collateralValue] = useState(73500); // Mock collateral value
+  const [btcAmount] = useState(loanData?.requiredBtc || 0.735); // BTC collateral amount
+  
+  // Calculate dynamic values based on current BTC price
+  const [collateralValue, setCollateralValue] = useState(0);
+  const [currentLTV, setCurrentLTV] = useState(0);
+
+  // Recalculate when BTC price changes
+  useEffect(() => {
+    const newCollateralValue = btcAmount * btcPrice;
+    const newLTV = (loanBalance / newCollateralValue) * 100;
+    
+    setCollateralValue(newCollateralValue);
+    setCurrentLTV(newLTV);
+  }, [btcPrice, btcAmount, loanBalance]);
 
   const getLTVStatus = (ltv: number) => {
     if (ltv < 70) return { color: 'text-green-600', bg: 'bg-green-100', status: 'Safe' };
@@ -33,6 +46,11 @@ const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack, onRestart }) =>
     } else {
       onBack(); // Fallback to onBack if onRestart is not provided
     }
+  };
+
+  const simulateBitcoinCrash = () => {
+    const crashedPrice = btcPrice * 0.8; // 20% drop
+    setBtcPrice(crashedPrice);
   };
 
   return (
@@ -53,13 +71,32 @@ const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack, onRestart }) =>
           <h1 className="text-2xl font-bold text-gray-900">Loan Dashboard</h1>
         </div>
 
+        {/* Bitcoin Crash Simulation */}
+        <Card className="p-4 mb-6 bg-red-50 border-red-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="font-semibold text-red-900">Market Simulation</h3>
+              <p className="text-sm text-red-700">Test your risk exposure</p>
+            </div>
+            <Button 
+              onClick={simulateBitcoinCrash}
+              variant="destructive"
+              size="sm"
+              className="flex items-center"
+            >
+              <TrendingDown className="w-4 h-4 mr-1" />
+              Crash -20%
+            </Button>
+          </div>
+        </Card>
+
         {/* LTV Alert */}
         <Card className={`p-4 mb-6 ${ltvStatus.bg} border-2`}>
           <div className="flex items-center">
             <TrendingUp className={`w-6 h-6 mr-3 ${ltvStatus.color}`} />
             <div>
               <h3 className={`font-semibold ${ltvStatus.color}`}>
-                Current LTV: {currentLTV}% ({ltvStatus.status})
+                Current LTV: {currentLTV.toFixed(1)}% ({ltvStatus.status})
               </h3>
               <p className="text-sm text-gray-700">
                 {currentLTV < 80 ? 'Your position is secure' : 'Monitor your position closely'}
@@ -87,7 +124,7 @@ const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack, onRestart }) =>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <p className="text-sm text-gray-600">BTC Amount</p>
-                <p className="text-lg font-semibold">{loanData?.requiredBtc?.toFixed(6)} BTC</p>
+                <p className="text-lg font-semibold">{btcAmount.toFixed(6)} BTC</p>
               </div>
               <div>
                 <p className="text-sm text-gray-600">BTC Price</p>
@@ -113,11 +150,11 @@ const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack, onRestart }) =>
               <div className="w-full bg-gray-200 rounded-full h-2">
                 <div 
                   className="bg-gradient-to-r from-green-400 via-yellow-400 to-red-500 h-2 rounded-full"
-                  style={{ width: `${(currentLTV / 90) * 100}%` }}
+                  style={{ width: `${Math.min((currentLTV / 90) * 100, 100)}%` }}
                 />
               </div>
               <p className="text-xs text-gray-500 mt-1">
-                Buffer: {(90 - currentLTV).toFixed(1)}% before liquidation
+                Buffer: {Math.max(90 - currentLTV, 0).toFixed(1)}% before liquidation
               </p>
             </div>
             
