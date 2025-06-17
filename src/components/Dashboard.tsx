@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, TrendingUp, AlertTriangle, CreditCard, DollarSign, Bitcoin, RotateCcw, TrendingDown } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
 import AlertsModal from './AlertsModal';
 import TopUpCardModal from './TopUpCardModal';
 import AddCollateralModal from './AddCollateralModal';
@@ -15,12 +14,9 @@ interface DashboardProps {
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack, onRestart }) => {
-  const { toast } = useToast();
-  
-  // State for Bitcoin price, amount, and loan balance
-  const [btcPrice, setBtcPrice] = useState(100000); // Initial BTC price in EUR
-  const [btcAmount, setBtcAmount] = useState(0.5); // Amount of BTC as collateral
-  const [loanBalance, setLoanBalance] = useState(35000); // Loan amount in EUR
+  const [btcPrice, setBtcPrice] = useState(100000); // Dynamic BTC price
+  const [loanBalance] = useState(loanData?.loanAmount || 50000);
+  const [btcAmount] = useState(loanData?.requiredBtc || 0.735); // BTC collateral amount
   
   // Calculate dynamic values based on current BTC price
   const [collateralValue, setCollateralValue] = useState(0);
@@ -59,13 +55,6 @@ const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack, onRestart }) =>
 
   const resetBitcoinPrice = () => {
     setBtcPrice(100000); // Reset to 100k EUR
-  };
-
-  const handleMakeRepayment = () => {
-    toast({
-      title: "Repayment Feature",
-      description: "Repayment functionality coming soon. You will be able to make partial or full loan repayments.",
-    });
   };
 
   return (
@@ -212,11 +201,7 @@ const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack, onRestart }) =>
               </Button>
             </AddCollateralModal>
             
-            <Button 
-              className="w-full justify-start" 
-              variant="outline"
-              onClick={handleMakeRepayment}
-            >
+            <Button className="w-full justify-start" variant="outline">
               <DollarSign className="w-4 h-4 mr-2" />
               Make Repayment
             </Button>
@@ -242,4 +227,3 @@ const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack, onRestart }) =>
 };
 
 export default Dashboard;
-
