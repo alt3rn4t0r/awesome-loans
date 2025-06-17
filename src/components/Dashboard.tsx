@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, TrendingUp, AlertTriangle, CreditCard, DollarSign, Bitcoin, RotateCcw, Home } from 'lucide-react';
+import { ArrowLeft, TrendingUp, AlertTriangle, CreditCard, DollarSign, Bitcoin, RotateCcw } from 'lucide-react';
 import AlertsModal from './AlertsModal';
 import TopUpCardModal from './TopUpCardModal';
 import AddCollateralModal from './AddCollateralModal';
@@ -51,15 +51,6 @@ const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack, onRestart }) =>
           </Button>
           
           <h1 className="text-2xl font-bold text-gray-900">Loan Dashboard</h1>
-          
-          <Button 
-            variant="default" 
-            size="sm"
-            className="flex items-center bg-orange-500 hover:bg-orange-600"
-          >
-            <Home className="w-4 h-4 mr-1" />
-            Dashboard
-          </Button>
         </div>
 
         {/* LTV Alert */}
