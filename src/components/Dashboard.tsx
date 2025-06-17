@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, TrendingUp, AlertTriangle, CreditCard, DollarSign, Bitcoin } from 'lucide-react';
+import AlertsModal from './AlertsModal';
 
 interface DashboardProps {
   loanData: any;
@@ -111,9 +111,11 @@ const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack }) => {
             </div>
             
             <div className="grid grid-cols-2 gap-3">
-              <Button variant="outline" size="sm">
-                Set Alerts
-              </Button>
+              <AlertsModal currentLTV={currentLTV}>
+                <Button variant="outline" size="sm" className="w-full">
+                  Set Alerts
+                </Button>
+              </AlertsModal>
               <Button variant="outline" size="sm">
                 <CreditCard className="w-4 h-4 mr-1" />
                 Add Top-up Card
