@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft, TrendingUp, AlertTriangle, CreditCard, DollarSign, Bitcoin } from 'lucide-react';
 import AlertsModal from './AlertsModal';
 import TopUpCardModal from './TopUpCardModal';
+import AddCollateralModal from './AddCollateralModal';
 
 interface DashboardProps {
   loanData: any;
@@ -132,10 +133,12 @@ const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack }) => {
           <h3 className="font-semibold mb-4">Quick Actions</h3>
           
           <div className="space-y-3">
-            <Button className="w-full justify-start" variant="outline">
-              <Bitcoin className="w-4 h-4 mr-2" />
-              Add More Collateral
-            </Button>
+            <AddCollateralModal currentCollateral={collateralValue}>
+              <Button className="w-full justify-start" variant="outline">
+                <Bitcoin className="w-4 h-4 mr-2" />
+                Add More Collateral
+              </Button>
+            </AddCollateralModal>
             
             <Button className="w-full justify-start" variant="outline">
               <DollarSign className="w-4 h-4 mr-2" />
