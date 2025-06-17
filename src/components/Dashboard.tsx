@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -10,9 +9,10 @@ import AddCollateralModal from './AddCollateralModal';
 interface DashboardProps {
   loanData: any;
   onBack: () => void;
+  onRestart?: () => void;
 }
 
-const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack }) => {
+const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack, onRestart }) => {
   const [currentLTV] = useState(68.5); // Mock current LTV
   const [btcPrice] = useState(100000); // Mock current BTC price
   const [loanBalance] = useState(loanData?.loanAmount || 50000);
@@ -28,7 +28,11 @@ const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack }) => {
   const ltvStatus = getLTVStatus(currentLTV);
 
   const handleRestartApplication = () => {
-    onBack(); // This will restart the loan application
+    if (onRestart) {
+      onRestart();
+    } else {
+      onBack(); // Fallback to onBack if onRestart is not provided
+    }
   };
 
   return (

@@ -14,6 +14,14 @@ const Index = () => {
   const [isKYCComplete, setIsKYCComplete] = useState(false);
   const [isLoanApproved, setIsLoanApproved] = useState(false);
 
+  const handleRestart = () => {
+    // Reset all state and go back to intro
+    setCurrentStep('intro');
+    setLoanData(null);
+    setIsKYCComplete(false);
+    setIsLoanApproved(false);
+  };
+
   const renderCurrentStep = () => {
     // If user has completed KYC and loan is approved, go directly to dashboard
     if (isKYCComplete && isLoanApproved) {
@@ -21,6 +29,7 @@ const Index = () => {
         <Dashboard 
           loanData={loanData}
           onBack={() => setCurrentStep('intro')}
+          onRestart={handleRestart}
         />
       );
     }
@@ -82,6 +91,7 @@ const Index = () => {
                 setCurrentStep('intro');
               }
             }}
+            onRestart={handleRestart}
           />
         );
       default:
