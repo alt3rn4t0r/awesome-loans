@@ -6,6 +6,7 @@ import AlertsModal from './AlertsModal';
 import TopUpCardModal from './TopUpCardModal';
 import AddCollateralModal from './AddCollateralModal';
 import TransactionHistoryModal from './TransactionHistoryModal';
+import RepaymentModal from './RepaymentModal';
 
 interface DashboardProps {
   loanData: any;
@@ -201,10 +202,12 @@ const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack, onRestart }) =>
               </Button>
             </AddCollateralModal>
             
-            <Button className="w-full justify-start" variant="outline">
-              <DollarSign className="w-4 h-4 mr-2" />
-              Make Repayment
-            </Button>
+            <RepaymentModal currentBalance={loanBalance}>
+              <Button className="w-full justify-start" variant="outline">
+                <DollarSign className="w-4 h-4 mr-2" />
+                Make Repayment
+              </Button>
+            </RepaymentModal>
             
             <TransactionHistoryModal>
               <Button className="w-full justify-start" variant="outline">
