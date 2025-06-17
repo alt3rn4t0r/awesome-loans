@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -31,18 +30,8 @@ const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack }) => {
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-orange-100 p-4">
       <div className="max-w-md mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6 pt-8">
-          <div className="flex items-center">
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              onClick={onBack}
-              className="mr-2"
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </Button>
-            <h1 className="text-2xl font-bold text-gray-900">Loan Dashboard</h1>
-          </div>
+        <div className="flex items-center justify-center mb-6 pt-8">
+          <h1 className="text-2xl font-bold text-gray-900">Loan Dashboard</h1>
         </div>
 
         {/* LTV Alert */}
