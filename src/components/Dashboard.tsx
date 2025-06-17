@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, TrendingUp, AlertTriangle, CreditCard, DollarSign, Bitcoin } from 'lucide-react';
+import { ArrowLeft, TrendingUp, AlertTriangle, CreditCard, DollarSign, Bitcoin, RotateCcw, Home } from 'lucide-react';
 import AlertsModal from './AlertsModal';
 import TopUpCardModal from './TopUpCardModal';
 import AddCollateralModal from './AddCollateralModal';
@@ -26,12 +26,35 @@ const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack }) => {
 
   const ltvStatus = getLTVStatus(currentLTV);
 
+  const handleRestartApplication = () => {
+    onBack(); // This will restart the loan application
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-orange-100 p-4">
       <div className="max-w-md mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-center mb-6 pt-8">
+        <div className="flex items-center justify-between mb-6 pt-8">
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={handleRestartApplication}
+            className="flex items-center"
+          >
+            <RotateCcw className="w-4 h-4 mr-1" />
+            Restart
+          </Button>
+          
           <h1 className="text-2xl font-bold text-gray-900">Loan Dashboard</h1>
+          
+          <Button 
+            variant="default" 
+            size="sm"
+            className="flex items-center bg-orange-500 hover:bg-orange-600"
+          >
+            <Home className="w-4 h-4 mr-1" />
+            Dashboard
+          </Button>
         </div>
 
         {/* LTV Alert */}
