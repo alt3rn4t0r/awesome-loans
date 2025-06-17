@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -121,7 +122,7 @@ const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack }) => {
               <TopUpCardModal>
                 <Button variant="outline" size="sm" className="w-full">
                   <CreditCard className="w-4 h-4 mr-1" />
-                  Add Top-up Card
+                  Top-up Card
                 </Button>
               </TopUpCardModal>
             </div>
