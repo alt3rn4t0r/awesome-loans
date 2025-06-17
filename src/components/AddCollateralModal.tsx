@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -21,7 +20,7 @@ const AddCollateralModal: React.FC<AddCollateralModalProps> = ({ children, curre
 
   // Mock deposit address - in real app this would be generated
   const depositAddress = 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh';
-  const btcPrice = 47200; // Mock BTC price
+  const btcPrice = 100000; // Mock BTC price
 
   const handleAmountChange = (value: string) => {
     // Only allow positive numbers with up to 8 decimal places

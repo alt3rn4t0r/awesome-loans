@@ -12,7 +12,7 @@ interface LoanCalculatorProps {
 
 const LoanCalculator: React.FC<LoanCalculatorProps> = ({ onComplete, onBack }) => {
   const [loanAmount, setLoanAmount] = useState('');
-  const [btcPrice] = useState(45000); // Mock BTC price in EUR
+  const [btcPrice] = useState(100000); // Mock BTC price in EUR
   const [requiredBtc, setRequiredBtc] = useState(0);
   const [ltv, setLtv] = useState(0);
   const [isValidAmount, setIsValidAmount] = useState(false);

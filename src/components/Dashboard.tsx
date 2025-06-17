@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -13,7 +14,7 @@ interface DashboardProps {
 
 const Dashboard: React.FC<DashboardProps> = ({ loanData, onBack }) => {
   const [currentLTV] = useState(68.5); // Mock current LTV
-  const [btcPrice] = useState(47200); // Mock current BTC price
+  const [btcPrice] = useState(100000); // Mock current BTC price
   const [loanBalance] = useState(loanData?.loanAmount || 50000);
   const [collateralValue] = useState(73500); // Mock collateral value
 
